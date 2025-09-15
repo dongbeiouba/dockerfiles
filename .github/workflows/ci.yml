@@ -7,14 +7,14 @@ on:
   pull_request:
   push:
     branches:
-      - main 
+      - main
 
 defaults:
   run:
     shell: bash
 
 jobs:
-  build-and-push:
+  build-and-push-rustci-image:
     runs-on: ubuntu-latest  # 使用 Ubuntu 环境运行
     permissions:
       contents: read
@@ -34,23 +34,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels)
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
-          tags: |
-            type=ref,event=branch
-            type=semver,pattern={{version}},event=tag
-            type=semver,pattern={{major}}.{{minor}},event=tag
-            type=sha,format=short
-
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           file: Dockerfile.rust_ci
           push: true  # 推送镜像到仓库
-          tags: ${{ steps.meta.outputs.tags }}  # 使用步骤4生成的标签
-          labels: ${{ steps.meta.outputs.labels }}  # 附加元数据标签
-          cache-from: type=gha  # 使用 GitHub Actions 缓存
-          cache-to: type=gha,mode=max  # 保存缓存供下次使用
+          tags: rust/ci:latest  # 使用步骤4生成的标签
