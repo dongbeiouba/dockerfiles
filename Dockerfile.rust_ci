@@ -4,7 +4,13 @@ RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
     build-essential \
-    pkg-config \
     git \
+    clang \
+    libssl-dev \
+    libtss2-dev \
+    pkg-config \
+    protobuf-compiler \
+    libsgx-dcap-quote-verify-dev \
+    libsgx-dcap-quote-verify \
     ; \
     rm -rf /var/lib/apt/lists/*;
