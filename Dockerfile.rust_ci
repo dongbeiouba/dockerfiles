@@ -10,7 +10,5 @@ RUN set -eux; \
     libtss2-dev \
     pkg-config \
     protobuf-compiler \
-    libsgx-dcap-quote-verify-dev \
-    libsgx-dcap-quote-verify \
     ; \
     rm -rf /var/lib/apt/lists/*;
