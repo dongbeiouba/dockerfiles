@@ -14,7 +14,7 @@ RUN apt-get update && \
     git \
     sudo
 
-RUN curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v0.11.0/opa_linux_amd64 && \
+RUN curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v1.8.0/opa_linux_amd64 && \
     chmod +x opa && \
     mv opa /usr/local/bin
 
